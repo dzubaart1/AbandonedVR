@@ -11,6 +11,9 @@ TagManager:
   - 
   - Water
   - UI
+  - PhysicsInteractable
+  - NonPhysicsInteractable
+  - Hands
   - 
   - 
   - 
@@ -33,10 +36,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Teleoport
   m_SortingLayers:
   - name: Default
     uniqueID: 0

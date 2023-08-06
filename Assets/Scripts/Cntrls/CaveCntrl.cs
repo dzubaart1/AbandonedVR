@@ -7,7 +7,7 @@ public class CaveCntrl : MonoBehaviour
     {
         if (other.transform.tag.Equals("Player"))
         {
-            SceneManager.LoadScene("FirstScene");
+            SceneManager.LoadScene("FirstLevelScene");
         }
     }
 }

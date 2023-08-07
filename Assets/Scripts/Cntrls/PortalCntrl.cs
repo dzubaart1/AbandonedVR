@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PortalCntrl : MonoBehaviour
+namespace Cntrls
 {
-    private void OnTriggerEnter(Collider other)
+    public class PortalCntrl : MonoBehaviour
     {
-        if (other.tag.Equals("Player"))
+        [SerializeField] private string _sceneName;
+        private void OnTriggerEnter(Collider other)
         {
-            SceneManager.LoadScene("SecondLevelScene");
+            if (other.tag.Equals("Player"))
+            {
+                SceneManager.LoadScene(_sceneName);
+            }
         }
     }
 }

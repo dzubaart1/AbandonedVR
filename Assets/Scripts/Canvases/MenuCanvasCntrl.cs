@@ -9,7 +9,7 @@ namespace Canvases
         [SerializeField] private RecordsAndCreditsCanvasCntrl RecordsAndCreditsCanvasCntrl;
         public void OnNewGameBtnClick()
         {
-            SceneManager.LoadScene("FirstScene");
+            SceneManager.LoadScene("GameScene");
         }
 
         public void OnSettingsBtnClick()

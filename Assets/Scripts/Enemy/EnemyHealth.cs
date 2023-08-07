@@ -6,17 +6,18 @@ namespace Enemy
 {
     public class EnemyHealth : MonoBehaviour
     {
-        public EnemyRankType EnemyRank;
-        public UnityEvent<HealthInfo> OnTakeDamage = new();
+        [SerializeField] private float _maxHealth;
 
         private float _currentHealth;
         private float _midHealth;
         private int _deathScore;
+        
+        public UnityEvent<HealthInfo> OnTakeDamage = new();
 
         private void Start()
         {
-            GameplayEventManager.Instance().SendSpawnEnemySignal();
-            BoostEventManager.Instance().OnBombBoostActivate.AddListener(Die);
+            _currentHealth = _maxHealth;
+            _midHealth = _currentHealth / 2;
         }
         
         public void TakeDamage(float damage)
@@ -41,17 +42,10 @@ namespace Enemy
         private void Die()
         {
             OnTakeDamage.Invoke(new HealthInfo(){IsDead = true,IsLowHealth = true});
-            GameplayEventManager.Instance().SendDieEnemySignal();
-            GameplayEventManager.Instance().SendUpdateScoreCountSignal(_deathScore);
+            ThirdLevelEveneManager.Instance().SendDieEnemySignal();
             Destroy(gameObject);
         }
 
-        public void SetStatistics(EnemyStatistics enemyStatistics)
-        {
-            _currentHealth = enemyStatistics.MaxHealth;
-            _midHealth = enemyStatistics.MaxHealth / 2;
-            _deathScore = enemyStatistics.DeathScore;
-        }
     }
     public class HealthInfo
     {

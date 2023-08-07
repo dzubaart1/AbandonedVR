@@ -7,12 +7,16 @@ public class PhysicsBtnCntrl : MonoBehaviour
     [SerializeField] private float _deadZone;
     [SerializeField] private float _threshold;
     
-    private bool _isPressed;
+    private bool _isPressed, _isGameStart;
     private Vector3 _startPos;
     private ConfigurableJoint _joint;
 
-    public UnityEvent OnReleased, OnPressed;
-    
+    public UnityEvent OnReleased;
+
+    public void OnStartGame()
+    {
+        _isGameStart = true;
+    }
     private void Start()
     {
         _startPos = transform.localPosition;
@@ -21,31 +25,16 @@ public class PhysicsBtnCntrl : MonoBehaviour
 
     private void Update()
     {
-        var value = GetValue();
-        
-        if (!_isPressed && value + _threshold >= 1)
-        {
-            Pressed();
-        }
-
-        if (_isPressed && value - _threshold <= 0)
+        if (_isGameStart && _isPressed && GetValue() - _threshold <= 0)
         {
             Released();
         }
-    }
-
-    private void Pressed()
-    {
-        _isPressed = true;
-        OnPressed.Invoke();
-        Debug.Log("Pressed");
     }
 
     private void Released()
     {
         _isPressed = false;
         OnReleased.Invoke();
-        Debug.Log("Released");
     }
 
     private float GetValue()

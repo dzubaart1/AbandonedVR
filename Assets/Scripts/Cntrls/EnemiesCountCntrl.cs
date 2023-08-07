@@ -1,32 +1,44 @@
 using Globals;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Cntrls
 {
     public class EnemiesCountCntrl : MonoBehaviour
     {
-        [SerializeField] private Text _enemiesCountText;
         [SerializeField] private int _maxEnemiesCount;
 
-        public int CurrentEnemiesCount { get; private set; }
+        private int _currentEnemiesCount;
+        private int _spawnedEnemies;
+        private bool _isEndSpawn;
+
+        public UnityEvent OnCompleteLevel = new();
 
         private void Start()
         {
-            GameplayEventManager.Instance().OnDieEnemy.AddListener(()=>UpdateEnemiesCount(-1));
-            GameplayEventManager.Instance().OnSpawnEnemy.AddListener(()=>UpdateEnemiesCount(1));
+            ThirdLevelEveneManager.Instance().OnSpawnEnemy.AddListener(OnSpawnedEnemy);
+            ThirdLevelEveneManager.Instance().OnDieEnemy.AddListener(OnDiedEnemy);
         }
 
-        private void UpdateEnemiesCount(int enemyCountChange)
+        private void OnSpawnedEnemy()
         {
-            CurrentEnemiesCount += enemyCountChange;
-            if (_enemiesCountText)
+            _currentEnemiesCount++;
+            _spawnedEnemies++;
+
+            if (_spawnedEnemies == _maxEnemiesCount)
             {
-                _enemiesCountText.text = CurrentEnemiesCount.ToString();
+                ThirdLevelEveneManager.Instance().SendEndSpawnSignal();
+                _isEndSpawn = true;
             }
-            if (CurrentEnemiesCount == _maxEnemiesCount)
+        }
+
+        private void OnDiedEnemy()
+        {
+            _currentEnemiesCount--;
+
+            if (_isEndSpawn && _currentEnemiesCount == 0)
             {
-                GameplayEventManager.Instance().SendEndGameSignal();
+                OnCompleteLevel.Invoke();
             }
         }
     }

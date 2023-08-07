@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -35,15 +34,20 @@ namespace Enemy
                 NavMeshHit navMeshHit;
                 NavMesh.SamplePosition(Random.insideUnitSphere * _randomPointRadius, out navMeshHit, _randomPointRadius,
                     NavMesh.AllAreas);
-
-                _nextRandomPoint = navMeshHit.position;
-
-                _agent.CalculatePath(_nextRandomPoint, _navMeshPath);
-                if (_navMeshPath.status == NavMeshPathStatus.PathComplete)
+                
+                if (!navMeshHit.hit)
                 {
-                    getCorrectPoint = true;
+                    continue;
                 }
 
+                _nextRandomPoint = navMeshHit.position;
+                
+                _agent.CalculatePath(_nextRandomPoint, _navMeshPath);
+                if (_navMeshPath.status != NavMeshPathStatus.PathComplete)
+                {
+                    continue;
+                }
+                getCorrectPoint = true;
                 _agent.SetDestination(_nextRandomPoint);
             }
         }

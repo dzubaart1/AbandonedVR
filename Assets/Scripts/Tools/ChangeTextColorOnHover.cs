@@ -1,28 +1,3 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Canvases
-{
-    public class ChangeTextColorOnHover : MonoBehaviour
-    {
-        [SerializeField] private Text _text;
-        [SerializeField] private Color _onHover;
-
-        private Color _defaultColor;
-        
-        private void Start()
-        {
-            _defaultColor = _text.color;
-        }
-
-        public void OnEnterHover()
-        {
-            _text.color = _onHover;
-        }
-
-        public void OnExitHover()
-        {
-            _text.color = _defaultColor;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d611b176ed098726358bf1c2d2a848b5a1aa1b58060cd448014b606315de26ae
+size 577

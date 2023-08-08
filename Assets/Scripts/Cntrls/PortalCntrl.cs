@@ -1,17 +1,3 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-namespace Cntrls
-{
-    public class PortalCntrl : MonoBehaviour
-    {
-        [SerializeField] private string _sceneName;
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.tag.Equals("Player"))
-            {
-                SceneManager.LoadScene(_sceneName);
-            }
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f20a9c0c5e3b647cf304648e063b12946f0626a43c4a3a212de353d8144b9b64
+size 893

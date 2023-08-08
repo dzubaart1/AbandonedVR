@@ -1,28 +1,3 @@
-﻿using UnityEngine.Events;
-
-namespace Globals
-{
-    public class Settings
-    {
-        public UnityEvent<float> OnChangeAudioVolumeSettings = new();
-
-        private float _audioVolume = 0.2f;
-        
-        private static Settings _singleton;
-        public static Settings Instance()
-        {
-            return _singleton ??= new Settings();
-        }
-
-        public void ChangeAudioVolumeSetting(float volume)
-        {
-            _audioVolume = volume;
-            OnChangeAudioVolumeSettings.Invoke(_audioVolume);
-        }
-
-        public float GetAudioVolume()
-        {
-            return _audioVolume;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e2e8bfcc5c1a97d206327d328b22eb0ec32bf8c3f1e136b0c7821fe30d553da6
+size 1211

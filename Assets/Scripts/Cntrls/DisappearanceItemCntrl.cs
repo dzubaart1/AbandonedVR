@@ -1,22 +1,3 @@
-using System.Collections;
-using UnityEngine;
-
-public class DisappearanceItemCntrl : MonoBehaviour
-{
-    [SerializeField] private ParticleSystem _activateParticleSystem;
-
-    private const float MAX_WAIT_BEFORE_DESTROY = 3;
-    
-    public void ActivateItem()
-    {
-        StartCoroutine(DestroyObject());
-    }
-
-    private IEnumerator DestroyObject()
-    {
-        yield return new WaitForSeconds(MAX_WAIT_BEFORE_DESTROY);
-        
-        Instantiate(_activateParticleSystem, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:bfcf51516cdcd2518f4000ce1f1771a28b27ea9a97898270c613fe1e23793c6d
+size 664
